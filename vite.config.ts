@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import Pages from "vite-plugin-pages"
 import Layouts from 'vite-plugin-vue-layouts'
+import Components from 'unplugin-vue-components/vite'
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
 
 
@@ -16,6 +17,9 @@ export default defineConfig({
     }),
     Pages(),
     Layouts(),
+    Components({
+      dts: 'src/components.d.ts',
+    }),
   ],
   resolve: {
     alias: {
