@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
+import { createRouter, createWebHistory } from 'vue-router'
+import routes from "~pages";
 
 // Import icon libraries
 import '@quasar/extras/roboto-font/roboto-font.css'
@@ -15,6 +17,10 @@ import App from './App.vue'
 
 const myApp = createApp(App)
 
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+})
 
 myApp.use(Quasar, {
   plugins: {}, // import Quasar plugins and add here
@@ -31,5 +37,7 @@ myApp.use(Quasar, {
   }
   */
 })
+
+myApp.use(router)
 
 myApp.mount('#app')
