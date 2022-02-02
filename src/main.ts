@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
 import { Quasar } from 'quasar'
 import { createRouter, createWebHistory } from 'vue-router'
-import routes from "~pages";
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from 'virtual:generated-pages'
 
 // Import icon libraries
 import '@quasar/extras/roboto-font/roboto-font.css'
@@ -12,6 +13,8 @@ import '@quasar/extras/material-icons-sharp/material-icons-sharp.css'
 
 // Import Quasar css
 import 'quasar/src/css/index.sass'
+
+const routes = setupLayouts(generatedRoutes)
 
 import App from './App.vue'
 
