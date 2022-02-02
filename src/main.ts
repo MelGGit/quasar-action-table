@@ -3,6 +3,8 @@ import { Quasar } from 'quasar'
 import { createRouter, createWebHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
+import { createI18n } from 'vue-i18n'
+import messages from '@intlify/vite-plugin-vue-i18n/messages'
 
 // Import icon libraries
 import '@quasar/extras/roboto-font/roboto-font.css'
@@ -15,6 +17,12 @@ import '@quasar/extras/material-icons-sharp/material-icons-sharp.css'
 import 'quasar/src/css/index.sass'
 
 const routes = setupLayouts(generatedRoutes)
+
+
+const i18n = createI18n({
+  locale: 'de',
+  messages
+})
 
 import App from './App.vue'
 
@@ -42,5 +50,6 @@ myApp.use(Quasar, {
 })
 
 myApp.use(router)
+myApp.use(i18n)
 
 myApp.mount('#app')
