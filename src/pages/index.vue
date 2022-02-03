@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <div>Test</div>
+  <section class="tw-mt-5">
+    <SecondLayer />
+  </section>
 </template>
 
 <style>
