@@ -14,7 +14,7 @@
           <span>Dashboard</span>
           <span>Patienten</span>
           <span>Mitarbeiter</span>
-          <q-btn style="background: #14151C" padding="4px 10px" rounded unelevated no-caps size="lg">Abrechnung</q-btn>
+          <q-btn style="background: #14151C" padding="4px 10px" unelevated no-caps size="lg">Abrechnung</q-btn>
         </div>
         <q-btn flat round dense icon="more_vert" />
       </div>
