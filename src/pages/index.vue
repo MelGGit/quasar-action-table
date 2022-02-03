@@ -9,10 +9,7 @@ const toggleLocales = () => {
 </script>
 
 <template>
-  <img alt="Vue logo" src="@/assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <div>{{ t('intro.whats-your-name') }}</div>
-  <button @click="toggleLocales">{{ t('button.toggle_langs') }}</button>
+  <div>Test</div>
 </template>
 
 <style>
