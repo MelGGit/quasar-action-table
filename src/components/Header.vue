@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+
+const { t } = useI18n()
 </script>
  
 <template>
@@ -11,10 +13,16 @@
               <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
             </q-avatar>
           </q-toolbar-title>
-          <span>Dashboard</span>
-          <span>Patienten</span>
-          <span>Mitarbeiter</span>
-          <q-btn style="background: #14151C" padding="4px 10px" unelevated no-caps size="lg">Abrechnung</q-btn>
+          <span>{{ t('header.dashboard') }}</span>
+          <span>{{ t('header.patients') }}</span>
+          <span>{{ t('header.staff') }}</span>
+          <q-btn
+            style="background: #14151C"
+            padding="4px 10px"
+            unelevated
+            no-caps
+            size="lg"
+          >{{ t('header.accounting') }}</q-btn>
         </div>
         <q-btn flat round dense icon="more_vert" />
       </div>
