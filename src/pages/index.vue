@@ -3,8 +3,9 @@
 </script>
 
 <template>
-  <section class="tw-mt-5">
-    <SecondLayer />
+  <section>
+    <SecondLayer class="tw-mt-5" />
+    <InnerLayout class="tw-mt-10" />
   </section>
 </template>
 
