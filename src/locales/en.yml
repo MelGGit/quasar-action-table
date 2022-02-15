@@ -11,3 +11,8 @@ secondLayer:
   title: Activity Confirmation
   accounting: Accounting
   activity-confirmation: Activity Confirmation
+buttonGroup:
+  read: Read
+  change: Change
+  put: Put
+  move: Move
