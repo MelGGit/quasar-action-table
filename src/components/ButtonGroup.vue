@@ -10,6 +10,7 @@ const valueComputed = computed({
   get: () => props.toggleValue,
   set: (value: String) => emit('update:toggleValue', value)
 })
+const { t } = useI18n()
 
 </script>
 
@@ -21,6 +22,7 @@ const valueComputed = computed({
       push
       stack
       no-caps
+      color="white"
       text-color="black"
       toggle-text-color="white"
       toggle-color="warning"
@@ -33,29 +35,29 @@ const valueComputed = computed({
     >
       <template v-slot:read>
         <div class="col no-wrap">
-          <q-icon center name="directions_boat" />
-          <div class="text-center">Lesen</div>
+          <q-icon center name="visibility" />
+          <div class="text-center">{{ t('buttonGroup.read') }}</div>
         </div>
       </template>
 
       <template v-slot:change>
         <div class="col no-wrap">
-          <q-icon center name="directions_car" />
-          <div class="text-center">Eingabe</div>
+          <q-icon center name="o_keyboard" />
+          <div class="text-center">{{ t('buttonGroup.change') }}</div>
         </div>
       </template>
 
       <template v-slot:put>
         <div class="col no-wrap">
-          <q-icon center name="directions_railway" />
-          <div class="text-center">Setzen</div>
+          <q-icon center name="touch_app" />
+          <div class="text-center">{{ t('buttonGroup.put') }}</div>
         </div>
       </template>
 
       <template v-slot:move>
         <div class="col no-wrap">
-          <q-icon center name="directions_railway" />
-          <div class="text-center">Verschieben</div>
+          <q-icon center name="open_with" />
+          <div class="text-center">{{ t('buttonGroup.move') }}</div>
         </div>
       </template>
     </q-btn-toggle>

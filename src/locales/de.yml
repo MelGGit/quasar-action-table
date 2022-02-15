@@ -11,3 +11,8 @@ secondLayer:
   title: Leistungsnachweis
   accounting: Abrechnung
   activity-confirmation: Leistungsnachweis
+buttonGroup:
+  read: Lesen
+  change: Eingabe
+  put: Setzen
+  move: Verschieben
