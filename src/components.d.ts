@@ -10,6 +10,7 @@ declare module 'vue' {
     Header: typeof import('./components/Header.vue')['default']
     InnerLayout: typeof import('./components/InnerLayout.vue')['default']
     SecondLayer: typeof import('./components/SecondLayer.vue')['default']
+    TableFeature: typeof import('./components/TableFeature.vue')['default']
   }
 }
 
