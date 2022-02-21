@@ -10,6 +10,7 @@ const toggleValue = ref('read')
       <DateSwitch>Januar 2022</DateSwitch>
       <TableFeature />
     </div>
+    <GridTable />
   </div>
 </template>
 
