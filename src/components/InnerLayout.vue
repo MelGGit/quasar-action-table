@@ -8,7 +8,7 @@ const toggleValue = ref('read')
     <ButtonGroup v-model:toggleValue="toggleValue" class="tw-absolute tw-top-[-30px] tw-left-1/2 center-group" />
     <div class="tw-w-full tw-flex tw-items-center tw-justify-between">
       <DateSwitch>Januar 2022</DateSwitch>
-      <div>Test</div>
+      <TableFeature />
     </div>
   </div>
 </template>
