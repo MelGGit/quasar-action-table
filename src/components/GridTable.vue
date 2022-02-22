@@ -1,24 +1,23 @@
 <script setup lang='ts'>
-import { modeEnum, weekdayShortsEnum } from '@/types';
 import { useCreateWeeKArray } from '@/composables/useCreateWeekArray';
 
 const numberOfDaysInMonth = 31
+const { t } = useI18n()
 
-
-const tableHead = ['Vertrag', 'Leistung', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), 'A']
+const tableHead = ['head.contract', 'head.activity', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), 'A']
 const weekRow = ['', 'Pflegeversicherung', ...useCreateWeeKArray(5, numberOfDaysInMonth), '']
 // Data morning
-const morningVisitRow = ['', 'morgens', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
+const morningVisitRow = ['', 'visit.morning', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const morningInfo = ['SGB XI HH', 'LK1: KL Morgen/Abendtlt.']
 const morningValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const morningSum = computed(() => morningValues.reduce(reduceFunction))
 // Data forenoon
-const forenoonVisitRow = ['', 'vormittags', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
+const forenoonVisitRow = ['', 'visit.forenoon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const forenoonInfo = ['SGB XI HH', 'LK5: Lagern/Betten']
 const forenoonValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const forenoonSum = computed(() => forenoonValues.reduce(reduceFunction))
 // Data noon
-const noonVisitRow = ['', 'mittags', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
+const noonVisitRow = ['', 'visit.noon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const noonInfo = ['SGB XI HH', 'LK17: Kl. Besorgungen']
 const noonValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const noonSum = computed(() => noonValues.reduce(reduceFunction))
@@ -46,6 +45,8 @@ const selectWholeText = (event: FocusEvent) => {
     event.target.select()
 }
 
+onMounted(() => console.log(t('head.contract')))
+
 </script>
  
 <template>
@@ -56,14 +57,14 @@ const selectWholeText = (event: FocusEvent) => {
       class="border-gray-black-child cell-padding tw-bg-[#F4F3F3] element"
       v-for="headName in tableHead"
       :key="headName"
-    >{{ headName }}</div>
+    >{{ t(headName) }}</div>
     <div
       class="border-gray-child cell-padding tw-text-base first:tw-bg-green-200 element"
       v-for="value in weekRow"
       :key="value"
-    >{{ value }}</div>
+    >{{ t(value) }}</div>
     <!-- Data morning -->
-    <div class="visit-row element" v-for="value in morningVisitRow" :key="value">{{ value }}</div>
+    <div class="visit-row element" v-for="value in morningVisitRow" :key="value">{{ t(value) }}</div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in morningInfo"
@@ -78,7 +79,7 @@ const selectWholeText = (event: FocusEvent) => {
     />
     <div class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element">{{ morningSum }}</div>
     <!-- Data forenoon -->
-    <div class="visit-row element" v-for="value in forenoonVisitRow" :key="value">{{ value }}</div>
+    <div class="visit-row element" v-for="value in forenoonVisitRow" :key="value">{{ t(value) }}</div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in forenoonInfo"
@@ -95,7 +96,7 @@ const selectWholeText = (event: FocusEvent) => {
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
     >{{ forenoonSum }}</div>
     <!-- Data noon -->
-    <div class="visit-row element" v-for="value in noonVisitRow" :key="value">{{ value }}</div>
+    <div class="visit-row element" v-for="value in noonVisitRow" :key="value">{{ t(value) }}</div>
     <div
       class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in noonInfo"

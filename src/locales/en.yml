@@ -16,3 +16,18 @@ buttonGroup:
   change: Change
   put: Put
   move: Move
+head:
+  contract: Contract
+  activity: Activity
+visit:
+  morning: morning
+  forenoon: forenoon
+  noon: noon
+weekday:
+  sa: Sa
+  su: Su
+  mo: Mo
+  tu: Tu
+  we: We
+  th: Th
+  fr: Fr
