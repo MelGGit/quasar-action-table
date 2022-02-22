@@ -53,16 +53,16 @@ const selectWholeText = (event: FocusEvent) => {
   >
     <div
       class="border-gray-black-child cell-padding tw-bg-[#F4F3F3] element"
-      v-for="headName in tableHead"
+      v-for="(headName, i) in tableHead"
       :key="headName"
-    >{{ t(headName) }}</div>
+    >{{ i < 2 ? t(headName) : headName }}</div>
     <div
       class="border-gray-child cell-padding tw-text-base first:tw-bg-green-200 element"
-      v-for="value in weekRow"
+      v-for="(value, i) in weekRow"
       :key="value"
-    >{{ t(value) }}</div>
+    >{{ i > 1 && i < 33 ? t(value) : value }}</div>
     <!-- Data morning -->
-    <div class="visit-row element" v-for="value in morningVisitRow" :key="value">{{ t(value) }}</div>
+    <div class="visit-row element" v-for="(value, i) in morningVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in morningInfo"
@@ -77,7 +77,7 @@ const selectWholeText = (event: FocusEvent) => {
     />
     <div class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element">{{ morningSum }}</div>
     <!-- Data forenoon -->
-    <div class="visit-row element" v-for="value in forenoonVisitRow" :key="value">{{ t(value) }}</div>
+    <div class="visit-row element" v-for="(value, i) in forenoonVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in forenoonInfo"
@@ -94,7 +94,7 @@ const selectWholeText = (event: FocusEvent) => {
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
     >{{ forenoonSum }}</div>
     <!-- Data noon -->
-    <div class="visit-row element" v-for="value in noonVisitRow" :key="value">{{ t(value) }}</div>
+    <div class="visit-row element" v-for="(value, i) in noonVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
       class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element"
       v-for="value in noonInfo"
