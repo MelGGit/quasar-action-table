@@ -18,7 +18,6 @@ const { t } = useI18n()
   <div>
     <q-btn-toggle
       v-model="valueComputed"
-      rounded
       push
       stack
       no-caps

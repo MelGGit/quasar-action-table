@@ -12,4 +12,43 @@
     white 100%
   )
   }
+  .element {
+    @apply holiday-background sunday-background
+  }
+  .border-gray-wrapper {
+  @apply tw-border-l tw-border-t tw-border-[#D6D5D6]
+  }
+  .border-gray-black-child {
+    @apply tw-border-r tw-border-b tw-border-r-[#D6D5D6] tw-border-b-black
+  }
+  .border-gray-child {
+    @apply tw-border-r tw-border-b tw-border-[#D6D5D6]
+  }
+  .visit-row {
+    @apply tw-p-0 border-gray-child xl:tw-py-1 tw-text-sm tw-text-gray-400 tw-overflow-hidden
+  }
+  .cell-padding {
+    @apply tw-p-1 2xl:tw-py-2 2xl:tw-px-2 tw-overflow-hidden
+  }
+  .input-element {
+    @apply tw-text-center cell-padding
+  }
+  .holiday-background:nth-child(34n + 3) {
+    @apply tw-bg-green-200
+  }
+  .sunday-background:nth-child(34n + 4) {
+    @apply tw-bg-neutral-200
+  }
+  .sunday-background:nth-child(34n + 11) {
+    @apply tw-bg-neutral-200
+  }
+  .sunday-background:nth-child(34n + 18) {
+    @apply tw-bg-neutral-200
+  }
+  .sunday-background:nth-child(34n + 25) {
+    @apply tw-bg-neutral-200
+  }
+  .sunday-background:nth-child(34n + 32) {
+    @apply tw-bg-neutral-200
+  }
 }
