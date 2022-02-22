@@ -10,7 +10,7 @@ const { t } = useI18n()
       <DateSwitch>{{ t('month.jan') }} 2022</DateSwitch>
       <TableFeature />
     </div>
-    <GridTable class="tw-mt-5" />
+    <GridTable class="tw-mt-5" :toggleValue="toggleValue" />
   </div>
 </template>
 
