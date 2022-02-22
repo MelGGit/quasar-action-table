@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { useCreateWeeKArray } from '@/composables/useCreateWeekArray';
 
-const props = defineProps<{
+defineProps<{
   toggleValue: string
 }>()
 
@@ -26,27 +26,8 @@ const noonInfo = ['SGB XI HH', 'LK17: Kl. Besorgungen']
 const noonValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const noonSum = computed(() => noonValues.reduce(reduceFunction))
 
-const isSunday = (index: number, offset: number): string => {
-  if ((index + offset) % 7 === 0) return 'tw-bg-neutral-200'
-  return ''
-}
-const isHoliday = (index: number, offset: number): string => {
-  if ((index - offset) === 1) return 'tw-bg-green-200'
-  return ''
-}
-const checkSpecialDay = (index: number, offset: number, defaultColor = ''): string => {
-  if (isSunday(index, offset) !== '') return isSunday(index, offset)
-  if (isHoliday(index, offset) !== '') return isHoliday(index, offset)
-  return defaultColor
-}
-
 function reduceFunction(accumulator: number, currentValue: number | string): number {
   return Number(accumulator) + Number(currentValue)
-}
-
-const selectWholeText = (event: FocusEvent) => {
-  if (event.target && event.target instanceof HTMLInputElement)
-    event.target.select()
 }
 
 </script>
@@ -76,14 +57,12 @@ const selectWholeText = (event: FocusEvent) => {
       v-for="value in morningInfo"
       :key="value"
     >{{ value }}</div>
-    <input
-      @focus="selectWholeText"
-      :readonly="toggleValue === 'read'"
-      class="border-gray-black-child input-element element"
-      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
+    <TableInput
       v-for="(value, i) in morningValues"
       :key="value"
-      v-model.lazy.number="morningValues[i]"
+      class="border-gray-black-child"
+      :toggleValue="toggleValue"
+      v-model:value="morningValues[i]"
     />
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
@@ -99,13 +78,12 @@ const selectWholeText = (event: FocusEvent) => {
       v-for="value in forenoonInfo"
       :key="value"
     >{{ value }}</div>
-    <input
-      @focus="selectWholeText"
-      class="border-gray-black-child input-element element"
-      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
+    <TableInput
       v-for="(value, i) in forenoonValues"
+      class="border-gray-black-child"
       :key="value"
-      v-model.lazy.number="forenoonValues[i]"
+      :toggleValue="toggleValue"
+      v-model:value="forenoonValues[i]"
     />
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
@@ -121,13 +99,12 @@ const selectWholeText = (event: FocusEvent) => {
       v-for="value in noonInfo"
       :key="value"
     >{{ value }}</div>
-    <input
-      @focus="selectWholeText"
-      class="border-gray-child input-element element"
-      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
+    <TableInput
+      class="border-gray-child"
       v-for="(value, i) in noonValues"
       :key="value"
-      v-model.lazy.number="noonValues[i]"
+      :toggleValue="toggleValue"
+      v-model:value="noonValues[i]"
     />
     <div
       class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
