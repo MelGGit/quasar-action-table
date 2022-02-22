@@ -31,3 +31,5 @@ weekday:
   we: We
   th: Th
   fr: Fr
+month:
+  jan: January

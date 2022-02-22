@@ -45,8 +45,6 @@ const selectWholeText = (event: FocusEvent) => {
     event.target.select()
 }
 
-onMounted(() => console.log(t('head.contract')))
-
 </script>
  
 <template>
