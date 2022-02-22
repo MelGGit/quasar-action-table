@@ -16,3 +16,18 @@ buttonGroup:
   change: Eingabe
   put: Setzen
   move: Verschieben
+head:
+  contract: Vertrag
+  activity: Leistung
+visit:
+  morning: morgens
+  forenoon: vormittags
+  noon: mittags
+weekday:
+  sa: Sa
+  su: So
+  mo: Mo
+  tu: Di
+  we: Mi
+  th: Do
+  fr: Fr
