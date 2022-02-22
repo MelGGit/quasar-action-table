@@ -7,6 +7,7 @@ declare module 'vue' {
     ButtonGroup: typeof import('./components/ButtonGroup.vue')['default']
     DateSwitch: typeof import('./components/DateSwitch.vue')['default']
     Footer: typeof import('./components/Footer.vue')['default']
+    GridTable: typeof import('./components/GridTable.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     InnerLayout: typeof import('./components/InnerLayout.vue')['default']
     SecondLayer: typeof import('./components/SecondLayer.vue')['default']
