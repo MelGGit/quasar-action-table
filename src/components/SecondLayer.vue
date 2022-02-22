@@ -11,7 +11,7 @@ const { t } = useI18n()
       <span>Britta Britt</span>
       <q-btn flat round dense icon="menu" />
     </div>
-    <span class="tw-text-2xl tw-ml-8">{{ t('secondLayer.title') }}</span>
+    <span class="tw-text-2xl tw-ml-8 tw-tracking-wide">{{ t('secondLayer.title') }}</span>
     <q-breadcrumbs>
       <template v-slot:separator>
         <q-icon size="1.5em" name="chevron_right" color="white" />

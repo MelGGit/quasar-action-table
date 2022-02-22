@@ -1,6 +1,10 @@
 <script setup lang='ts'>
 import { useCreateWeeKArray } from '@/composables/useCreateWeekArray';
 
+const props = defineProps<{
+  toggleValue: string
+}>()
+
 const numberOfDaysInMonth = 31
 const { t } = useI18n()
 
@@ -52,61 +56,81 @@ const selectWholeText = (event: FocusEvent) => {
     class="tw-grid tw-grid-cols-[minmax(max-content,_auto)_minmax(max-content,_auto)_repeat(32,_minmax(1.8rem,_1fr))] tw-text-center border-gray-wrapper tw-text-lg tw-overflow-x-auto"
   >
     <div
-      class="border-gray-black-child cell-padding tw-bg-[#F4F3F3] element"
+      class="border-gray-black-child cell-padding tw-bg-[#F4F3F3] element tw-cursor-default"
       v-for="(headName, i) in tableHead"
       :key="headName"
     >{{ i < 2 ? t(headName) : headName }}</div>
     <div
-      class="border-gray-child cell-padding tw-text-base first:tw-bg-green-200 element"
+      class="border-gray-child cell-padding tw-text-base first:tw-bg-green-200 element tw-cursor-default"
       v-for="(value, i) in weekRow"
       :key="value"
     >{{ i > 1 && i < 33 ? t(value) : value }}</div>
     <!-- Data morning -->
-    <div class="visit-row element" v-for="(value, i) in morningVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
-      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
+      class="visit-row element tw-cursor-default"
+      v-for="(value, i) in morningVisitRow"
+      :key="value"
+    >{{ i === 1 ? t(value) : value }}</div>
+    <div
+      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in morningInfo"
       :key="value"
     >{{ value }}</div>
     <input
       @focus="selectWholeText"
+      :readonly="toggleValue === 'read'"
       class="border-gray-black-child input-element element"
+      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
       v-for="(value, i) in morningValues"
       :key="value"
       v-model.lazy.number="morningValues[i]"
     />
-    <div class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element">{{ morningSum }}</div>
-    <!-- Data forenoon -->
-    <div class="visit-row element" v-for="(value, i) in forenoonVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
-      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
+      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
+    >{{ morningSum }}</div>
+    <!-- Data forenoon -->
+    <div
+      class="visit-row element tw-cursor-default"
+      v-for="(value, i) in forenoonVisitRow"
+      :key="value"
+    >{{ i === 1 ? t(value) : value }}</div>
+    <div
+      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in forenoonInfo"
       :key="value"
     >{{ value }}</div>
     <input
       @focus="selectWholeText"
       class="border-gray-black-child input-element element"
+      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
       v-for="(value, i) in forenoonValues"
       :key="value"
       v-model.lazy.number="forenoonValues[i]"
     />
     <div
-      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element"
+      class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
     >{{ forenoonSum }}</div>
     <!-- Data noon -->
-    <div class="visit-row element" v-for="(value, i) in noonVisitRow" :key="value">{{ i === 1 ? t(value) : value }}</div>
     <div
-      class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element"
+      class="visit-row element tw-cursor-default"
+      v-for="(value, i) in noonVisitRow"
+      :key="value"
+    >{{ i === 1 ? t(value) : value }}</div>
+    <div
+      class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in noonInfo"
       :key="value"
     >{{ value }}</div>
     <input
       @focus="selectWholeText"
       class="border-gray-child input-element element"
+      :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
       v-for="(value, i) in noonValues"
       :key="value"
       v-model.lazy.number="noonValues[i]"
     />
-    <div class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element">{{ noonSum }}</div>
+    <div
+      class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
+    >{{ noonSum }}</div>
   </div>
 </template>
