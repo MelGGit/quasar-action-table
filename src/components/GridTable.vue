@@ -1,13 +1,14 @@
 <script setup lang='ts'>
 import { useCreateWeeKArray } from '@/composables/useCreateWeekArray';
 
-defineProps<{
-  toggleValue: string
+const props = defineProps<{
+  toggleValue: string,
+  putValue: number
 }>()
 
 const numberOfDaysInMonth = 31
 const { t } = useI18n()
-
+const tableWrapper = ref<HTMLDivElement>()
 const tableHead = ['head.contract', 'head.activity', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), 'A']
 const weekRow = ['', 'Pflegeversicherung', ...useCreateWeeKArray(5, numberOfDaysInMonth), '']
 // Data morning
@@ -30,11 +31,46 @@ function reduceFunction(accumulator: number, currentValue: number | string): num
   return Number(accumulator) + Number(currentValue)
 }
 
+const updateValueOnPut = (arrayName: number, index: number) => {
+  switch (arrayName) {
+    case 0:
+      morningValues[index] = props.putValue
+      break;
+    case 1:
+      forenoonValues[index] = props.putValue
+      break;
+    case 2:
+      noonValues[index] = props.putValue
+      break;
+    default:
+      break;
+  }
+}
+
+const handlePutStartEvent = (arrayName: number, index: number, event: DragEvent) => {
+  const img = document.createElement('img')
+  event.dataTransfer?.setDragImage(img, 0, 0)
+
+  // if (event.target instanceof HTMLInputElement && event.target.parentElement instanceof HTMLTableCellElement) {
+  // }
+}
+const handlePutEvent = (arrayName: number, index: number, event: DragEvent) => {
+  if (event.target instanceof HTMLInputElement) {
+    event.target.classList.add('drag-background')
+  }
+  updateValueOnPut(arrayName, index)
+}
+
+const handlePutEndEvent = (event: DragEvent) => {
+  tableWrapper.value?.querySelectorAll('.drag-background').forEach(el => el.classList.remove('drag-background'))
+}
+
 </script>
  
 <template>
   <div
     class="tw-grid tw-grid-cols-[minmax(max-content,_auto)_minmax(max-content,_auto)_repeat(32,_minmax(1.8rem,_1fr))] tw-text-center border-gray-wrapper tw-text-lg tw-overflow-x-auto"
+    ref="tableWrapper"
   >
     <div
       class="border-gray-black-child cell-padding tw-bg-[#F4F3F3] element tw-cursor-default"
@@ -62,6 +98,10 @@ function reduceFunction(accumulator: number, currentValue: number | string): num
       :key="value"
       class="border-gray-black-child"
       :toggleValue="toggleValue"
+      @dragstart="toggleValue === 'put' ? handlePutStartEvent(0, i, $event) : null"
+      @dragover.prevent="toggleValue === 'put' ? handlePutEvent(0, i, $event) : null"
+      @dragenter.prevent="toggleValue === 'put' ? handlePutEvent(0, i, $event) : null"
+      @dragend.prevent="toggleValue === 'put' ? handlePutEndEvent($event) : null"
       v-model:value="morningValues[i]"
     />
     <div
@@ -111,3 +151,9 @@ function reduceFunction(accumulator: number, currentValue: number | string): num
     >{{ noonSum }}</div>
   </div>
 </template>
+
+<style>
+.drag-background {
+  background-color: aquamarine !important;
+}
+</style>

@@ -15,6 +15,7 @@ const valueComputed = computed({
 })
 
 const selectWholeText = (event: FocusEvent) => {
+  if (props.toggleValue !== 'change') return
   if (event.target && event.target instanceof HTMLInputElement)
     event.target.select()
 }
@@ -23,9 +24,11 @@ const selectWholeText = (event: FocusEvent) => {
 <template>
   <input
     @focus="selectWholeText"
-    :readonly="toggleValue === 'read'"
-    class="input-element element"
-    :class="[toggleValue === 'read' && 'tw-pointer-events-none']"
+    :draggable="toggleValue === 'put'"
+    :dropzone="toggleValue === 'put'"
+    :readonly="toggleValue === 'read' || toggleValue === 'put'"
+    class="input-element element !tw-outline-none"
+    :class="[toggleValue === 'read' && 'tw-pointer-events-none', toggleValue === 'put' && 'tw-cursor-pointer']"
     v-model.lazy.number="valueComputed"
   />
 </template>

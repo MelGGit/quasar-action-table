@@ -34,7 +34,7 @@
     @apply tw-text-center cell-padding
   }
   .holiday-background:nth-child(34n + 3) {
-    @apply tw-bg-green-200
+    @apply tw-bg-green-100
   }
   .sunday-background:nth-child(34n + 4) {
     @apply tw-bg-neutral-200
