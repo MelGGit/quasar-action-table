@@ -24,11 +24,11 @@ const selectWholeText = (event: FocusEvent) => {
 <template>
   <input
     @focus="selectWholeText"
-    :draggable="toggleValue === 'put'"
-    :dropzone="toggleValue === 'put'"
-    :readonly="toggleValue === 'read' || toggleValue === 'put'"
+    :draggable="toggleValue === 'put' || toggleValue === 'move'"
+    :dropzone="toggleValue === 'put' || toggleValue === 'move'"
+    :readonly="toggleValue === 'read' || toggleValue === 'put' || toggleValue === 'move'"
     class="input-element element !tw-outline-none"
-    :class="[toggleValue === 'read' && 'tw-pointer-events-none', toggleValue === 'put' && 'tw-cursor-pointer']"
+    :class="[toggleValue === 'read' && 'tw-pointer-events-none', toggleValue === 'put' && 'tw-cursor-pointer', toggleValue === 'move' && 'tw-cursor-pointer']"
     v-model.lazy.number="valueComputed"
   />
 </template>
