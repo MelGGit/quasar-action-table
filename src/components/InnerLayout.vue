@@ -53,7 +53,7 @@ const alterToggleValue = (value: modeEnum) => {
         </template>
       </q-select>
     </div>
-    <GridTable class="tw-mt-5" :toggleValue="toggleValue" :putValue="putValue" />
+    <GridTable :selectValue="selectAttribute" class="tw-mt-5" :toggleValue="toggleValue" :putValue="putValue" />
   </div>
 </template>
 

@@ -1,7 +1,8 @@
 <script setup lang='ts'>
+import { modeEnum } from '@/types';
 
 const props = defineProps<{
-  toggleValue: string,
+  toggleValue: modeEnum,
   value: number
 }>()
 
@@ -26,9 +27,9 @@ const selectWholeText = (event: FocusEvent) => {
     @focus="selectWholeText"
     :draggable="toggleValue === 'put' || toggleValue === 'move'"
     :dropzone="toggleValue === 'put' || toggleValue === 'move'"
-    :readonly="toggleValue === 'read' || toggleValue === 'put' || toggleValue === 'move'"
+    :readonly="toggleValue === 'read' || toggleValue === 'put' || toggleValue === 'move' || toggleValue === 'attribute'"
     class="input-element element !tw-outline-none"
-    :class="[toggleValue === 'read' && 'tw-pointer-events-none', toggleValue === 'put' && 'tw-cursor-pointer', toggleValue === 'move' && 'tw-cursor-pointer']"
+    :class="[toggleValue === 'read' && 'tw-pointer-events-none', toggleValue === 'put' && 'tw-cursor-pointer', toggleValue === 'move' && 'tw-cursor-pointer', toggleValue === 'attribute' && 'tw-cursor-pointer']"
     v-model.number="valueComputed"
   />
 </template>
