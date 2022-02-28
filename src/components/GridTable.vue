@@ -19,13 +19,13 @@ const morningSum = computed(() => morningValues.value.reduce(reduceFunction))
 // Data forenoon
 const forenoonVisitRow = ['', 'visit.forenoon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const forenoonInfo = ['SGB XI HH', 'LK5: Lagern/Betten']
-const forenoonValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
-const forenoonSum = computed(() => forenoonValues.reduce(reduceFunction))
+const forenoonValues = ref<number[]>(new Array(numberOfDaysInMonth).fill(1))
+const forenoonSum = computed(() => forenoonValues.value.reduce(reduceFunction))
 // Data noon
 const noonVisitRow = ['', 'visit.noon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const noonInfo = ['SGB XI HH', 'LK17: Kl. Besorgungen']
-const noonValues = reactive<number[]>(new Array(numberOfDaysInMonth).fill(1))
-const noonSum = computed(() => noonValues.reduce(reduceFunction))
+const noonValues = ref<number[]>(new Array(numberOfDaysInMonth).fill(1))
+const noonSum = computed(() => noonValues.value.reduce(reduceFunction))
 
 const update = ref(0)
 function reduceFunction(accumulator: number, currentValue: number | string): number {
@@ -38,10 +38,10 @@ const updateArray = (arrayNumber: 0 | 1 | 2, index: number, value: number) => {
       morningValues.value.splice(index, 1, value)
       break;
     case 1:
-      forenoonValues[index] = value
+      forenoonValues.value.splice(index, 1, value)
       break;
     case 2:
-      noonValues[index] = value
+      noonValues.value.splice(index, 1, value)
       break;
   }
 }
@@ -51,9 +51,9 @@ const getArrayValue = (arrayNumber: 0 | 1 | 2, index: number) => {
     case 0:
       return morningValues.value[index]
     case 1:
-      return forenoonValues[index]
+      return forenoonValues.value[index]
     case 2:
-      return noonValues[index]
+      return noonValues.value[index]
   }
 }
 
@@ -99,7 +99,7 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
   const destValue = getArrayValue(arrayNumber, index)
   const sumToAdd = Number(destValue) + Number(numberToAdd)
   updateArray(arrayNumber, index, sumToAdd)
-  update.value++
+  // update.value++
 }
 
 </script>
