@@ -13,6 +13,7 @@ const createAttributeArray = (): Set<string>[] => {
 
 const numberOfDaysInMonth = 31
 const { t } = useI18n()
+// Table Setup
 const tableWrapper = ref<HTMLDivElement>()
 const tableHead = ['head.contract', 'head.activity', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), 'A']
 const weekRow = ['', 'Pflegeversicherung', ...useCreateWeeKArray(5, numberOfDaysInMonth), '']
@@ -125,6 +126,7 @@ const handleAddAttribute = (arrayNumber: number, col: number) => {
   }
 }
 
+
 </script>
  
 <template>
@@ -151,6 +153,15 @@ const handleAddAttribute = (arrayNumber: number, col: number) => {
         name="noise_control_off"
         class="absolute-bottom-right"
       />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && morningAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in morningAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
     </div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
@@ -182,6 +193,15 @@ const handleAddAttribute = (arrayNumber: number, col: number) => {
         name="noise_control_off"
         class="absolute-bottom-right"
       />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && foreNoonAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in foreNoonAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
     </div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
@@ -213,6 +233,15 @@ const handleAddAttribute = (arrayNumber: number, col: number) => {
         name="noise_control_off"
         class="absolute-bottom-right"
       />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && noonAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in noonAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
     </div>
     <div
       class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
