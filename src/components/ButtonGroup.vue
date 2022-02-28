@@ -1,14 +1,15 @@
 <script setup lang='ts'>
+import { modeEnum } from '@/types';
 const props = defineProps<{
-  toggleValue: String
+  toggleValue: modeEnum
 }>()
 const emit = defineEmits<{
-  (event: 'update:toggleValue', value: String): void
+  (event: 'update:toggleValue', value: modeEnum): void
 }>()
 
 const valueComputed = computed({
   get: () => props.toggleValue,
-  set: (value: String) => emit('update:toggleValue', value)
+  set: (value: modeEnum) => emit('update:toggleValue', value)
 })
 const { t } = useI18n()
 

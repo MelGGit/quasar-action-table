@@ -1,31 +1,41 @@
 <script setup lang='ts'>
 import { useCreateWeeKArray } from '@/composables/useCreateWeekArray';
+import { modeEnum } from '@/types';
 
 const props = defineProps<{
-  toggleValue: string,
-  putValue: number
+  toggleValue: modeEnum,
+  putValue: number,
+  selectValue: string
 }>()
+const createAttributeArray = (): Set<string>[] => {
+  return Array.from(Array(numberOfDaysInMonth), () => new Set())
+}
 
 const numberOfDaysInMonth = 31
 const { t } = useI18n()
+// Table Setup
 const tableWrapper = ref<HTMLDivElement>()
 const tableHead = ['head.contract', 'head.activity', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), 'A']
 const weekRow = ['', 'Pflegeversicherung', ...useCreateWeeKArray(5, numberOfDaysInMonth), '']
 // Data morning
 const morningVisitRow = ['', 'visit.morning', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const morningInfo = ['SGB XI HH', 'LK1: KL Morgen/Abendtlt.']
+const morningAttributes = ref(createAttributeArray())
 const morningValues = ref<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const morningSum = computed(() => morningValues.value.reduce(reduceFunction))
 // Data forenoon
 const forenoonVisitRow = ['', 'visit.forenoon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
+const foreNoonAttributes = ref(createAttributeArray())
 const forenoonInfo = ['SGB XI HH', 'LK5: Lagern/Betten']
 const forenoonValues = ref<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const forenoonSum = computed(() => forenoonValues.value.reduce(reduceFunction))
 // Data noon
 const noonVisitRow = ['', 'visit.noon', ...Array.from(Array(numberOfDaysInMonth), (e, i) => i + 1), '']
 const noonInfo = ['SGB XI HH', 'LK17: Kl. Besorgungen']
+const noonAttributes = ref(createAttributeArray())
 const noonValues = ref<number[]>(new Array(numberOfDaysInMonth).fill(1))
 const noonSum = computed(() => noonValues.value.reduce(reduceFunction))
+
 
 const update = ref(0)
 function reduceFunction(accumulator: number, currentValue: number | string): number {
@@ -102,6 +112,21 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
   // update.value++
 }
 
+const handleAddAttribute = (arrayNumber: number, col: number) => {
+  switch (arrayNumber) {
+    case 0:
+      morningAttributes.value[col].add(props.selectValue)
+      break;
+    case 1:
+      foreNoonAttributes.value[col].add(props.selectValue)
+      break;
+    case 2:
+      noonAttributes.value[col].add(props.selectValue)
+      break;
+  }
+}
+
+
 </script>
  
 <template>
@@ -121,11 +146,23 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       :key="value"
     >{{ i > 1 && i < 33 ? t(value) : value }}</div>
     <!-- Data morning -->
-    <div
-      class="visit-row element tw-cursor-default"
-      v-for="(value, i) in morningVisitRow"
-      :key="value"
-    >{{ i === 1 ? t(value) : value }}</div>
+    <div class="visit-row element tw-cursor-default tw-relative" v-for="(value, i) in morningVisitRow" :key="value">
+      {{ i === 1 ? t(value) : value }}
+      <q-icon
+        v-if="i > 1 && i < 33 && morningAttributes[i - 2].size > 0"
+        name="noise_control_off"
+        class="absolute-bottom-right"
+      />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && morningAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in morningAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
+    </div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in morningInfo"
@@ -136,6 +173,7 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       :key="i"
       class="border-gray-black-child"
       :toggleValue="toggleValue"
+      @click="toggleValue === 'attribute' ? handleAddAttribute(0, i) : null"
       @dragstart="toggleValue === 'put' ? handlePutStartEvent(0, i, $event) : null, toggleValue === 'move' ? handleShiftDragStart(0, i, $event) : null"
       @dragover.prevent="toggleValue === 'put' ? handlePutEvent(0, i, $event) : null"
       @drop="toggleValue === 'move' ? handleShiftDrop(0, i, $event) : null"
@@ -148,11 +186,23 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
     >{{ morningSum }}</div>
     <!-- Data forenoon -->
-    <div
-      class="visit-row element tw-cursor-default"
-      v-for="(value, i) in forenoonVisitRow"
-      :key="value"
-    >{{ i === 1 ? t(value) : value }}</div>
+    <div class="visit-row element tw-cursor-default tw-relative" v-for="(value, i) in forenoonVisitRow" :key="value">
+      {{ i === 1 ? t(value) : value }}
+      <q-icon
+        v-if="i > 1 && i < 33 && foreNoonAttributes[i - 2].size > 0"
+        name="noise_control_off"
+        class="absolute-bottom-right"
+      />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && foreNoonAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in foreNoonAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
+    </div>
     <div
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in forenoonInfo"
@@ -163,6 +213,7 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       class="border-gray-black-child"
       :key="i"
       :toggleValue="toggleValue"
+      @click="toggleValue === 'attribute' ? handleAddAttribute(1, i) : null"
       @dragstart="toggleValue === 'put' ? handlePutStartEvent(1, i, $event) : null, toggleValue === 'move' ? handleShiftDragStart(1, i, $event) : null"
       @dragover.prevent="toggleValue === 'put' ? handlePutEvent(1, i, $event) : null"
       @drop="toggleValue === 'move' ? handleShiftDrop(1, i, $event) : null"
@@ -175,11 +226,23 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       class="border-gray-black-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
     >{{ forenoonSum }}</div>
     <!-- Data noon -->
-    <div
-      class="visit-row element tw-cursor-default"
-      v-for="(value, i) in noonVisitRow"
-      :key="value"
-    >{{ i === 1 ? t(value) : value }}</div>
+    <div class="visit-row element tw-cursor-default tw-relative" v-for="(value, i) in noonVisitRow" :key="value">
+      {{ i === 1 ? t(value) : value }}
+      <q-icon
+        v-if="i > 1 && i < 33 && noonAttributes[i - 2].size > 0"
+        name="noise_control_off"
+        class="absolute-bottom-right"
+      />
+      <q-tooltip
+        v-if="i > 1 && i < 33 && noonAttributes[i - 2].size > 0"
+        anchor="top end"
+        self="top end"
+        class="tw-flex tw-flex-col"
+        :offset="[66, 15]"
+      >
+        <span v-for="value in noonAttributes[i - 2]">{{ t(value) }}</span>
+      </q-tooltip>
+    </div>
     <div
       class="border-gray-child cell-padding tw-flex tw-justify-center tw-items-center element tw-cursor-default"
       v-for="value in noonInfo"
@@ -190,6 +253,7 @@ const handleShiftDrop = (arrayNumber: 0 | 1 | 2, index: number, event: DragEvent
       v-for="(value, i) in noonValues"
       :key="i"
       :toggleValue="toggleValue"
+      @click="toggleValue === 'attribute' ? handleAddAttribute(2, i) : null"
       @dragstart="toggleValue === 'put' ? handlePutStartEvent(2, i, $event) : null, toggleValue === 'move' ? handleShiftDragStart(2, i, $event) : null"
       @dragover.prevent="toggleValue === 'put' ? handlePutEvent(2, i, $event) : null"
       @drop="toggleValue === 'move' ? handleShiftDrop(2, i, $event) : null"

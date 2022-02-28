@@ -1,12 +1,19 @@
 <script setup lang='ts'>
-const toggleValue = ref('read')
+import { modeEnum } from '@/types';
+
+const toggleValue = ref<modeEnum>('read')
+const selectAttribute = ref('attribute.one')
 const putValue = ref(1)
+const attributes = ['attribute.one', 'attribute.two', 'attribute.three', 'attribute.four']
 const { t } = useI18n()
 const putInputElement = ref<HTMLInputElement>()
 watchEffect(() => {
   if (toggleValue.value === 'put') putInputElement.value?.select()
 }
 )
+const alterToggleValue = (value: modeEnum) => {
+  toggleValue.value = value
+}
 
 </script>
  
@@ -24,9 +31,29 @@ watchEffect(() => {
     </div>
     <div class="tw-w-full tw-flex tw-items-center tw-justify-between">
       <DateSwitch>{{ t('month.jan') }} 2022</DateSwitch>
-      <TableFeature />
+      <TableFeature @toggleValue="alterToggleValue($event)" class="tw-relative" />
+      <q-select
+        v-if="toggleValue === 'attribute'"
+        class="tw-absolute tw-right-12 tw-top-10"
+        rounded
+        dense
+        outlined
+        v-model="selectAttribute"
+        :options="attributes"
+        color="black"
+        options-selected-class="text-deep-orange"
+      >
+        <template v-slot:selected-item="scope">{{ t(scope.opt) }}</template>
+        <template v-slot:option="scope">
+          <q-item v-bind="scope.itemProps">
+            <q-item-section>
+              <q-item-label>{{ t(scope.opt) }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
     </div>
-    <GridTable class="tw-mt-5" :toggleValue="toggleValue" :putValue="putValue" />
+    <GridTable :selectValue="selectAttribute" class="tw-mt-5" :toggleValue="toggleValue" :putValue="putValue" />
   </div>
 </template>
 

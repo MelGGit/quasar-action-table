@@ -33,3 +33,8 @@ weekday:
   fr: Fr
 month:
   jan: January
+attribute:
+  one: Attribute 1
+  two: Attribute 2
+  three: Attribute 3
+  four: Attribute 4
